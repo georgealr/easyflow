@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMove, FiSmartphone, FiTablet, FiMonitor, FiSave, FiUndo, FiRedo } from 'react-icons/fi';
+import { FiMove, FiSmartphone, FiTablet, FiMonitor, FiSave, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
 const Editor = () => {
   const [components, setComponents] = useState([
@@ -77,10 +77,10 @@ const Editor = () => {
         </div>
         <div className="flex gap-4">
           <button className="p-2 bg-gray-200 rounded-lg">
-            <FiUndo size={24} />
+            <FiArrowLeft size={24} />
           </button>
           <button className="p-2 bg-gray-200 rounded-lg">
-            <FiRedo size={24} />
+            <FiArrowRight size={24} />
           </button>
           <button className="p-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg">
             <FiSave size={24} />
