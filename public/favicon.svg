@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle width="32" height="32" r="16" fill="url(#gradient)"/>
+  
+  <!-- Flowing lines matching logo design -->
+  <path d="M8 16 Q12 13 16 16 T24 16" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M9 12 Q13 9 17 12 T25 12" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M9 20 Q13 23 17 20 T25 20" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+  
+  <!-- Small sparkle -->
+  <circle cx="22" cy="10" r="1.5" fill="white" opacity="0.8"/>
+  
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed"/>
+      <stop offset="50%" style="stop-color:#a855f7"/>
+      <stop offset="100%" style="stop-color:#6366f1"/>
+    </linearGradient>
+  </defs>
+</svg>

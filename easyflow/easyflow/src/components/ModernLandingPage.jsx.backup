@@ -1,0 +1,488 @@
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { 
+  FaRocket, FaMagic, FaBolt, FaGem, FaPlay, FaArrowRight,
+  FaStar, FaCode, FaPalette, FaLayerGroup, FaChartLine,
+  FaGlobe, FaMobile, FaDesktop, FaTabletAlt
+} from 'react-icons/fa';
+
+const FLOATING_PARTICLES = Array.from({ length: 50 }, (_, i) => ({
+  id: i,
+  x: Math.random() * 100,
+  y: Math.random() * 100,
+  size: Math.random() * 4 + 1,
+  duration: Math.random() * 20 + 10
+}));
+
+const FEATURES = [
+  {
+    icon: <FaMagic />,
+    title: 'AI-Powered Design',
+    description: 'Advanced AI suggests layouts, colors, and content based on your industry. Generate stunning websites in seconds.',
+    color: 'from-purple-500 to-pink-500',
+    benefit: '10x faster design process'
+  },
+  {
+    icon: <FaBolt />,
+    title: 'Lightning Fast',
+    description: 'Build professional websites in under 5 minutes. No coding required, just pure creativity.',
+    color: 'from-yellow-400 to-orange-500',
+    benefit: 'Launch in minutes, not days'
+  },
+  {
+    icon: <FaCode />,
+    title: 'No Code Required',
+    description: 'Visual drag-and-drop interface with real-time preview. Anyone can create like a pro.',
+    color: 'from-green-400 to-blue-500',
+    benefit: 'Save $10,000+ in development costs'
+  },
+  {
+    icon: <FaGlobe />,
+    title: 'Global Ready',
+    description: 'Built-in SEO, multi-language support, mobile optimization, and CDN delivery worldwide.',
+    color: 'from-blue-500 to-purple-600',
+    benefit: 'Reach customers globally'
+  },
+  {
+    icon: <FaRocket />,
+    title: 'Performance Optimized',
+    description: 'Sub-second loading times, automatic image optimization, and 99.9% uptime guarantee.',
+    color: 'from-indigo-500 to-cyan-500',
+    benefit: 'Google loves fast sites'
+  },
+  {
+    icon: <FaGem />,
+    title: 'Enterprise Security',
+    description: 'SSL certificates, GDPR compliance, advanced analytics, and enterprise-grade hosting.',
+    color: 'from-pink-500 to-rose-500',
+    benefit: 'Bank-level security'
+  }
+];
+
+const STATS = [
+  { number: '2M+', label: 'Websites Created', icon: <FaGlobe />, growth: '+150% this year' },
+  { number: '150K+', label: 'Happy Businesses', icon: <FaStar />, growth: 'In 120+ countries' },
+  { number: '99.99%', label: 'Uptime SLA', icon: <FaBolt />, growth: 'Enterprise grade' },
+  { number: '500+', label: 'AI Templates', icon: <FaPalette />, growth: 'Updated weekly' },
+  { number: '< 2s', label: 'Load Time', icon: <FaRocket />, growth: 'Globally optimized' },
+  { number: '24/7', label: 'Expert Support', icon: <FaGem />, growth: 'Always here for you' }
+];
+
+export default function ModernLandingPage({ onGetStarted }) {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const heroRef = useRef(null);
+  const featuresRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll();
+  const yTransform = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const scaleTransform = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
+  
+  const isInView = useInView(featuresRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 3);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-neutral-900 to-black text-white overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 z-0">
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(82, 82, 91, 0.3) 0%, transparent 50%)`
+          }}
+        />
+        
+        {/* Floating Particles */}
+        {FLOATING_PARTICLES.map((particle) => (
+          <motion.div
+            key={particle.id}
+            className="absolute bg-zinc-400 rounded-full opacity-20"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              width: particle.size,
+              height: particle.size,
+            }}
+            animate={{
+              y: [-20, 20, -20],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: particle.duration,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+
+        {/* Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(82, 82, 91, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(82, 82, 91, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
+        />
+      </div>
+
+      {/* Hero Section */}
+      <motion.section
+        ref={heroRef}
+        className="relative z-10 min-h-screen flex items-center justify-center px-6"
+        style={{ y: yTransform, scale: scaleTransform }}
+      >
+        <div className="text-center max-w-6xl mx-auto">
+          {/* Logo Animation */}
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="mb-8"
+          >
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-zinc-600 to-zinc-800 rounded-2xl mb-6">
+              <FaRocket className="text-3xl text-zinc-200" />
+            </div>
+          </motion.div>
+
+          {/* Main Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-6xl md:text-8xl font-black mb-6 leading-tight"
+          >
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+              Build Faster
+            </span>
+            <br />
+            <span className="text-white">Than Brizy</span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl md:text-2xl text-zinc-300 mb-8 max-w-4xl mx-auto leading-relaxed"
+          >
+            Create professional websites 10x faster with AI-powered design, drag-and-drop simplicity, 
+            and enterprise-grade performance. Join 150,000+ businesses who switched from competitors.
+          </motion.p>
+
+          {/* Social Proof */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mb-8 flex items-center justify-center gap-2 text-amber-400"
+          >
+            {[...Array(5)].map((_, i) => (
+              <FaStar key={i} className="text-lg" />
+            ))}
+            <span className="ml-2 text-zinc-300">4.9/5 from 50,000+ reviews</span>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6"
+          >
+            <motion.button
+              onClick={onGetStarted}
+              className="group relative px-12 py-5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl text-lg font-bold overflow-hidden shadow-2xl hover:shadow-purple-500/50 transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="relative z-10 flex items-center gap-3 text-white">
+                <FaRocket className="text-xl" />
+                Start Building for FREE
+                <div className="ml-2 px-2 py-1 bg-white/20 rounded-full text-xs font-bold">
+                  No Credit Card
+                </div>
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400"
+                initial={{ x: '100%' }}
+                whileHover={{ x: '0%' }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.button>
+
+            <motion.button
+              className="group px-10 py-5 bg-zinc-800/50 backdrop-blur-sm border-2 border-zinc-700 hover:border-zinc-600 rounded-2xl font-semibold text-lg text-zinc-300 hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className="flex items-center gap-3">
+                <FaPlay className="text-lg group-hover:text-purple-400 transition-colors" />
+                Watch Demo (2 min)
+              </div>
+            </motion.button>
+          </motion.div>
+
+          {/* Trust Indicators */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="mt-12 text-zinc-500 text-sm"
+          >
+            <p className="mb-4">Trusted by 150,000+ businesses worldwide</p>
+            <div className="flex flex-wrap items-center justify-center gap-6 opacity-60">
+              <div className="px-4 py-2 bg-zinc-800/50 rounded-lg backdrop-blur-sm">Enterprise</div>
+              <div className="px-4 py-2 bg-zinc-800/50 rounded-lg backdrop-blur-sm">Startups</div>
+              <div className="px-4 py-2 bg-zinc-800/50 rounded-lg backdrop-blur-sm">Agencies</div>
+              <div className="px-4 py-2 bg-zinc-800/50 rounded-lg backdrop-blur-sm">E-commerce</div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+            <motion.button
+              className="group flex items-center gap-3 px-8 py-4 border border-zinc-700 rounded-lg text-lg font-medium hover:border-zinc-500 transition-colors text-zinc-300 hover:text-white"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaPlay className="text-zinc-500" />
+              Watch Demo
+            </motion.button>
+          </motion.div>
+
+          {/* Demo Preview */}
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-20"
+          >
+            <div className="relative max-w-4xl mx-auto">
+              <div className="bg-gradient-to-r from-zinc-800/50 to-zinc-700/50 rounded-3xl p-1 backdrop-blur-sm border border-zinc-700/50">
+                <div className="bg-zinc-900 rounded-3xl p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <div className="flex-1 bg-zinc-800 rounded-lg px-4 py-2 text-sm text-zinc-500">
+                      https://your-amazing-website.com
+                    </div>
+                  </div>
+                  
+                  <div className="aspect-video bg-gradient-to-br from-zinc-800 via-zinc-900 to-black rounded-xl flex items-center justify-center">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    >
+                      <FaGem className="text-6xl text-zinc-600 opacity-50" />
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Elements */}
+              <motion.div
+                className="absolute -top-10 -left-10 w-20 h-20 bg-gradient-to-r from-zinc-600 to-zinc-700 rounded-full opacity-20 blur-xl"
+                animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+                transition={{ duration: 6, repeat: Infinity }}
+              />
+              <motion.div
+                className="absolute -bottom-10 -right-10 w-32 h-32 bg-gradient-to-r from-zinc-700 to-zinc-800 rounded-full opacity-20 blur-xl"
+                animate={{ scale: [1.2, 1, 1.2], rotate: [360, 180, 0] }}
+                transition={{ duration: 8, repeat: Infinity }}
+              />
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Stats Section */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {STATS.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-3xl text-purple-400 mb-2">{stat.icon}</div>
+                <div className="text-3xl md:text-4xl font-black text-white mb-2">{stat.number}</div>
+                <div className="text-gray-400">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section ref={featuresRef} className="relative z-10 py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl md:text-6xl font-black mb-6">
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Powered by AI
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Experience the next generation of web design with our advanced AI algorithms
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {FEATURES.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className="group relative p-8 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 hover:border-purple-500/50 transition-all duration-300"
+                whileHover={{ y: -10 }}
+              >
+                <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${feature.color} rounded-xl mb-6 text-white text-xl`}>
+                  {feature.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-purple-400 transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-300 leading-relaxed">
+                  {feature.description}
+                </p>
+                
+                {/* Hover Effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  layoutId={`feature-bg-${index}`}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Device Preview Section */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-5xl font-black text-white mb-16"
+          >
+            Works on <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Every Device</span>
+          </motion.h2>
+
+          <div className="flex items-end justify-center gap-8">
+            {/* Mobile */}
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="w-16 h-28 bg-gray-800 rounded-lg border-2 border-gray-600 flex flex-col">
+                <div className="flex-1 bg-gradient-to-br from-purple-500 to-blue-500 m-1 rounded"></div>
+                <div className="h-4 flex items-center justify-center">
+                  <div className="w-6 h-1 bg-gray-600 rounded"></div>
+                </div>
+              </div>
+              <FaMobile className="text-purple-400 text-2xl mt-4 mx-auto" />
+            </motion.div>
+
+            {/* Tablet */}
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="w-24 h-32 bg-gray-800 rounded-xl border-2 border-gray-600 flex flex-col">
+                <div className="flex-1 bg-gradient-to-br from-purple-500 to-blue-500 m-2 rounded"></div>
+                <div className="h-6 flex items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-gray-600 rounded-full"></div>
+                </div>
+              </div>
+              <FaTabletAlt className="text-purple-400 text-2xl mt-4 mx-auto" />
+            </motion.div>
+
+            {/* Desktop */}
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="w-40 h-24 bg-gray-800 rounded-lg border-2 border-gray-600 flex flex-col">
+                <div className="flex-1 bg-gradient-to-br from-purple-500 to-blue-500 m-2 rounded"></div>
+              </div>
+              <div className="w-2 h-8 bg-gray-700 mx-auto"></div>
+              <div className="w-20 h-4 bg-gray-700 rounded-full mx-auto"></div>
+              <FaDesktop className="text-purple-400 text-2xl mt-4 mx-auto" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm rounded-3xl p-12 border border-purple-500/20"
+          >
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+              Ready to Build Something Amazing?
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">
+              Join thousands of creators who are already building the future
+            </p>
+            <motion.button
+              onClick={onGetStarted}
+              className="px-12 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-xl font-bold text-white"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Start Your Journey
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}

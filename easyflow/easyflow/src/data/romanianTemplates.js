@@ -1,0 +1,135 @@
+// Template-uri specifice pentru România
+const ROMANIAN_TEMPLATES = [
+  {
+    id: 'restaurant-bucuresti',
+    name: 'Restaurant București',
+    category: 'Restaurant',
+    thumbnail: 'https://via.placeholder.com/800x600/8B4513/ffffff?text=Restaurant+București',
+    preview: 'https://via.placeholder.com/1200x900/8B4513/ffffff?text=Restaurant+București',
+    tags: ['Restaurant', 'București', 'Mâncare Românească', 'Rezervări'],
+    description: 'Template elegant pentru restaurante din București cu meniu online și sistem de rezervări',
+    features: ['Meniu Online', 'Rezervări Online', 'Galerie Foto', 'Contact & Locație'],
+    isPremium: false,
+    isPopular: true,
+    industry: 'Horeca'
+  },
+  {
+    id: 'cabinet-medical',
+    name: 'Cabinet Medical',
+    category: 'Medical',
+    thumbnail: 'https://via.placeholder.com/800x600/006bb3/ffffff?text=Cabinet+Medical',
+    preview: 'https://via.placeholder.com/1200x900/006bb3/ffffff?text=Cabinet+Medical',
+    tags: ['Medical', 'Sănătate', 'Doctori', 'Programări'],
+    description: 'Template profesional pentru cabinete medicale cu sistem de programări online',
+    features: ['Programări Online', 'Servicii Medicale', 'Echipa Medicală', 'Contact'],
+    isPremium: true,
+    isPopular: true,
+    industry: 'Sănătate'
+  },
+  {
+    id: 'salon-frumusete',
+    name: 'Salon Frumusețe',
+    category: 'Beauty',
+    thumbnail: 'https://via.placeholder.com/800x600/FF69B4/ffffff?text=Salon+Frumusețe',
+    preview: 'https://via.placeholder.com/1200x900/FF69B4/ffffff?text=Salon+Frumusețe',
+    tags: ['Frumusețe', 'Salon', 'Coafură', 'Cosmetică'],
+    description: 'Template modern pentru saloane de frumusețe cu galerie de lucrări și preturi',
+    features: ['Galerie Lucrări', 'Lista Prețuri', 'Echipa', 'Programări'],
+    isPremium: false,
+    isPopular: true,
+    industry: 'Beauty'
+  },
+  {
+    id: 'cabinet-avocat',
+    name: 'Cabinet Avocatură',
+    category: 'Legal',
+    thumbnail: 'https://via.placeholder.com/800x600/1a1a1a/ffffff?text=Cabinet+Avocatură',
+    preview: 'https://via.placeholder.com/1200x900/1a1a1a/ffffff?text=Cabinet+Avocatură',
+    tags: ['Juridic', 'Avocați', 'Drept', 'Consultanță'],
+    description: 'Template profesional pentru cabinete de avocatură cu prezentarea serviciilor juridice',
+    features: ['Servicii Juridice', 'Echipa Avocați', 'Experiență', 'Contact'],
+    isPremium: true,
+    isPopular: false,
+    industry: 'Juridic'
+  },
+  {
+    id: 'agentie-imobiliara',
+    name: 'Agenție Imobiliară',
+    category: 'Real Estate',
+    thumbnail: 'https://via.placeholder.com/800x600/32CD32/ffffff?text=Agenție+Imobiliară',
+    preview: 'https://via.placeholder.com/1200x900/32CD32/ffffff?text=Agenție+Imobiliară',
+    tags: ['Imobiliare', 'Apartamente', 'Case', 'Închirieri'],
+    description: 'Template pentru agenții imobiliare cu listare proprietăți și căutare avansată',
+    features: ['Proprietăți', 'Căutare Avansată', 'Hărți', 'Contact Agent'],
+    isPremium: true,
+    isPopular: true,
+    industry: 'Imobiliare'
+  },
+  {
+    id: 'scoala-privata',
+    name: 'Școală Privată',
+    category: 'Education',
+    thumbnail: 'https://via.placeholder.com/800x600/FF4500/ffffff?text=Școală+Privată',
+    preview: 'https://via.placeholder.com/1200x900/FF4500/ffffff?text=Școală+Privată',
+    tags: ['Educație', 'Școală', 'Învățământ', 'Copii'],
+    description: 'Template educațional pentru școli private cu informații despre programe și înscrieri',
+    features: ['Programe Educaționale', 'Corpul Profesoral', 'Înscrieri', 'Evenimente'],
+    isPremium: false,
+    isPopular: false,
+    industry: 'Educație'
+  },
+  {
+    id: 'service-auto',
+    name: 'Service Auto',
+    category: 'Automotive',
+    thumbnail: 'https://via.placeholder.com/800x600/696969/ffffff?text=Service+Auto',
+    preview: 'https://via.placeholder.com/1200x900/696969/ffffff?text=Service+Auto',
+    tags: ['Auto', 'Service', 'Reparații', 'Mașini'],
+    description: 'Template pentru service-uri auto cu prezentarea serviciilor și programări online',
+    features: ['Servicii Auto', 'Programări', 'Piese Auto', 'Contact'],
+    isPremium: false,
+    isPopular: true,
+    industry: 'Automotive'
+  },
+  {
+    id: 'startup-tech-ro',
+    name: 'Startup Tech România',
+    category: 'Tech',
+    thumbnail: 'https://via.placeholder.com/800x600/4169E1/ffffff?text=Startup+Tech+RO',
+    preview: 'https://via.placeholder.com/1200x900/4169E1/ffffff?text=Startup+Tech+RO',
+    tags: ['Tech', 'Startup', 'România', 'Inovație'],
+    description: 'Template modern pentru startup-uri tech românești cu focus pe inovație',
+    features: ['Despre Startup', 'Produse/Servicii', 'Echipa', 'Contact Investitori'],
+    isPremium: true,
+    isPopular: true,
+    industry: 'Tech'
+  },
+  {
+    id: 'pensiune-turistica',
+    name: 'Pensiune Turistică',
+    category: 'Tourism',
+    thumbnail: 'https://via.placeholder.com/800x600/228B22/ffffff?text=Pensiune+Turistică',
+    preview: 'https://via.placeholder.com/1200x900/228B22/ffffff?text=Pensiune+Turistică',
+    tags: ['Turism', 'Pensiune', 'Cazare', 'Vacanță'],
+    description: 'Template pentru pensiuni turistice cu galerie, tarife și rezervări online',
+    features: ['Camere & Tarife', 'Galerie Foto', 'Rezervări Online', 'Atracții Locale'],
+    isPremium: false,
+    isPopular: true,
+    industry: 'Turism'
+  },
+  {
+    id: 'magazin-online-ro',
+    name: 'Magazin Online România',
+    category: 'E-commerce',
+    thumbnail: 'https://via.placeholder.com/800x600/DC143C/ffffff?text=Magazin+Online+RO',
+    preview: 'https://via.placeholder.com/1200x900/DC143C/ffffff?text=Magazin+Online+RO',
+    tags: ['E-commerce', 'Magazin Online', 'România', 'Vânzări'],
+    description: 'Template complet pentru magazin online cu plăți în lei și livrare în România',
+    features: ['Catalog Produse', 'Coș Cumpărături', 'Plăți LEI', 'Livrare România'],
+    isPremium: true,
+    isPopular: true,
+    industry: 'E-commerce'
+  }
+];
+
+export default ROMANIAN_TEMPLATES;
